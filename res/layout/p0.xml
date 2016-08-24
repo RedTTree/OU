@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/include1"
+        android:background="@drawable/bg_search"
+        android:gravity="center_vertical" >
+        <TextView
+        android:id="@+id/place"
+        android:text="江安"
+        android:paddingTop="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentLeft="true"
+        android:textColor="#ffffff"
+        android:textSize="20dp"      
+            ></TextView>     
+         <ImageButton
+            android:id="@+id/ib_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+              android:paddingTop="6dp"
+            android:paddingRight="35dp"
+            android:background="@drawable/selector_bt_search" />
+
+        <EditText
+            android:id="@+id/et_text"
+            android:layout_width="150dp"
+            android:paddingTop="3dp"
+            android:textColor="#c6c6c6"            
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/place"
+            android:layout_centerHorizontal="true"
+            android:background="@null"
+            android:ems="10"
+            android:hint="搜索" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
