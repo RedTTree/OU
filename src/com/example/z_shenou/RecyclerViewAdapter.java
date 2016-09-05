@@ -16,11 +16,11 @@ import android.widget.TextView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.NewsViewHolder>{
 
-    private List<News> newses;
+    private List<Items> items;
     private Context context;
 
-    public RecyclerViewAdapter(List<News> newses,Context context) {
-        this.newses = newses;
+    public RecyclerViewAdapter(List<Items> items,Context context) {
+        this.items = items;
         this.context=context;
     }
 
@@ -29,26 +29,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     static class NewsViewHolder extends RecyclerView.ViewHolder{
 
         CardView cardView;
-        ImageView news_photo;
-        TextView news_title;
-        TextView news_desc;
-        Button share;
-        Button readMore;
+        ImageView iv_userhead;
+        TextView iv_name;
+        TextView iv_content;
+
 
         public NewsViewHolder(final View itemView) {
             super(itemView);
             cardView= (CardView) itemView.findViewById(R.id.card_view);
-            news_photo= (ImageView) itemView.findViewById(R.id.news_photo);
-            news_title= (TextView) itemView.findViewById(R.id.news_title);
-            news_desc= (TextView) itemView.findViewById(R.id.news_desc);
-            share= (Button) itemView.findViewById(R.id.btn_share);
-            readMore= (Button) itemView.findViewById(R.id.btn_more);
+            iv_userhead= (ImageView) itemView.findViewById(R.id.iv_userhead);
+            iv_name= (TextView)itemView.findViewById(R.id.iv_name);
+            iv_content= (TextView) itemView.findViewById(R.id.iv_content);
             //设置TextView背景为半透明
-            news_title.setBackgroundColor(Color.argb(20, 0, 0, 0));
-
+            //iv_name.setBackgroundColor(Color.argb(20, 0, 0, 0));
         }
-
-
     }
     @Override
     public RecyclerViewAdapter.NewsViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -61,47 +55,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(RecyclerViewAdapter.NewsViewHolder personViewHolder, int i) {
         final int j=i;
 
-        personViewHolder.news_photo.setImageResource(newses.get(i).getPhotoId());
-        personViewHolder.news_title.setText(newses.get(i).getTitle());
-        personViewHolder.news_desc.setText(newses.get(i).getDesc());
+        personViewHolder.iv_userhead.setImageResource(items.get(i).getuserhead());
+        personViewHolder.iv_name.setText(items.get(i).getname());
+        personViewHolder.iv_content.setText(items.get(i).getcontent());
 
         //为btn_share btn_readMore cardView设置点击事件
         personViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context,NewsActivity.class);
-                intent.putExtra("News",newses.get(j));
+                Intent intent=new Intent(context,Item_content.class);
                 context.startActivity(intent);
             }
         });
-
-        personViewHolder.share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_SUBJECT, "分享");
-                intent.putExtra(Intent.EXTRA_TEXT, newses.get(j).getDesc());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(Intent.createChooser(intent, newses.get(j).getTitle()));
-            }
-        });
-
-        personViewHolder.readMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(context,NewsActivity.class);
-                intent.putExtra("News",newses.get(j));
-                context.startActivity(intent);
-            }
-        });
-
 
     }
 
     @Override
     public int getItemCount() {
-        return newses.size();
+        return items.size();
     }
 
 

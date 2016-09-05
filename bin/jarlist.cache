@@ -1,5 +1,7 @@
 # cache for current jar dependency. DO NOT EDIT.
 # format is <lastModified> <length> <SHA-1> <path>
 # Encoding is UTF-8
-1456053991383 1364299 b6c138ba72ce38beda559df33d369856854fd6f5 E:\新建文件夹\workspace\appcompat_v7\libs\android-support-v4.jar
-1471501555011 1364299 b6c138ba72ce38beda559df33d369856854fd6f5 E:\新建文件夹\workspace\Z_ShenOu\libs\android-support-v4.jar
+1472797050615 1422188 1dc1f63cee098b27db60b9a2833fd7ca58f89636 E:\新建文件夹\workspace\appcompat_v7\libs\android-support-v4.jar
+1472801042491 1422188 1dc1f63cee098b27db60b9a2833fd7ca58f89636 E:\新建文件夹\workspace\UO\libs\android-support-v4.jar
+1472797050584 657138 6c2e7717a6b70dd702de6f8df474b4458f6a16aa E:\新建文件夹\workspace\appcompat_v7\libs\android-support-v7-appcompat.jar
+1472797050584 657138 6c2e7717a6b70dd702de6f8df474b4458f6a16aa E:\新建文件夹\workspace\UO\libs\android-support-v7-appcompat.jar

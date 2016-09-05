@@ -25,7 +25,7 @@
             </activity>
              <activity android:name=".Login"> </activity>
               <activity android:name=".Register"> </activity>
-              <activity android:name=".NewsAcyivity"> </activity>
+              <activity android:name=".Item_content"> </activity>
     </application>
 
 </manifest>
