@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import com.example.z_shenou.MeFragment.OnLoginSelectedListener;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,23 +24,39 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadFileListener;
 
 public class MainActivity extends FragmentActivity implements OnClickListener,OnLoginSelectedListener {
 
 	
-
-	private List<Fragment> fragments;
-	static final int REQUEST_CODE=1;
+	    //从前一个activity返回的识别码
+	    static final int REQUEST_PIC=0;
+	    static final int REQUEST_LOGIN=1;
+		private static final int PICTURE = 10086; //requestcode
+		//通过本地缓存登录
+		private MyUser currentuser;
+		//传值
+		 Bundle bundle;
+	    //五个跳转的框架
+	    private List<Fragment> fragments;
 	    private HomeFragment homeFragment;
 	    private DailFragment dailFragment;
 	    private MaFragment maFragment;
 	    private MeFragment meFragment;
 	    private MenuFragment menuFragment;
+	    //下面的字
 	    private List<TextView> views;
 	    private TextView home;
 	    private TextView dail;
 	    private TextView ma;
 	    private TextView me;
+	  
 	    private String account=null;
 //	    底部中间凸起view
 	    private ImageView menuIv;
@@ -46,7 +65,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,On
 //	    旧的views下标
 	    private int oldIndex = 0;
 	    private boolean isMenuSelect = false;	
-	
+	   
 	
 	
 	
@@ -56,7 +75,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener,On
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-		
+		currentuser=BmobUser.getCurrentUser(MyUser.class);//登录的用户
+		 bundle = new Bundle(); 
+		 bundle.putSerializable("user", currentuser);
+		//具体内容
 		 if (savedInstanceState == null) {
 	          
 	                 // 初始化控件
@@ -65,6 +87,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,On
 	                 initEvent();
 	                 // 初始化并设置当前Fragment
 	                 initFragments();
+	        
 	        }
 	}
 
@@ -75,6 +98,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener,On
 		maFragment=new MaFragment();
 		meFragment=new MeFragment();
 		menuFragment=new MenuFragment();
+		
+		homeFragment.setArguments(bundle);
+		dailFragment.setArguments(bundle);
+		maFragment.setArguments(bundle);
+		meFragment.setArguments(bundle);
+		menuFragment.setArguments(bundle);
 		
 		fragments=new ArrayList<Fragment>();
 		fragments.add(homeFragment);
@@ -126,6 +155,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,On
 
 	private void initView() {
 		// TODO 自动生成的方法存根
+		
 		home=(TextView)findViewById(R.id.home);
 		dail=(TextView)findViewById(R.id.dail);
 		ma=(TextView) findViewById(R.id.ma);
@@ -195,10 +225,23 @@ public class MainActivity extends FragmentActivity implements OnClickListener,On
 	}
 
 	@Override
-	public void onLoginSelected() {
+	public void onLoginSelected(int id) {
 		// TODO 自动生成的方法存根
+		if(id==REQUEST_LOGIN){
 		Intent intent=new Intent(MainActivity.this,Login.class);
-		startActivityForResult(intent,REQUEST_CODE);
+		startActivity(intent);
+		}
+		else if(id==REQUEST_PIC){
+			Intent intent = new Intent();
+			if (Build.VERSION.SDK_INT < 19) {//因为Android SDK在4.4版本后图片action变化了 所以在这里先判断一下
+			      intent.setAction(Intent.ACTION_GET_CONTENT);
+			    } else {
+			      intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+			    }
+			    intent.setType("image/*");
+			    intent.addCategory(Intent.CATEGORY_OPENABLE);
+			startActivityForResult(intent, PICTURE);
+		}
 	}
 	
 	
@@ -206,13 +249,64 @@ public class MainActivity extends FragmentActivity implements OnClickListener,On
 	
 	@Override
 	protected void onActivityResult(int requestCode,int resultCode,Intent data){
-		Bundle extras=data.getExtras(); 
-		currentIndex=extras.getInt("loginflag");
-		account=extras.getString("account");
-		menuIv.setSelected(false);
-	    isMenuSelect = false;
-	    TextView logined=(TextView)findViewById(R.id.unlogin);
-	    logined.setText(account);
-		showCurrentFragment(currentIndex);
+		 if (data == null) {
+		      this.finish();
+		      return;
+		    }
+		    Uri uri = data.getData();
+		    switch (requestCode) {
+		      case PICTURE:
+		       String image = FileUtils.getUriPath(this, uri);
+		       Toast.makeText(MainActivity.this,image,Toast.LENGTH_SHORT).show();
+		       updatePIC(image);//（因为4.4以后图片uri发生了变化）通过文件工具类 对uri进行解析得到图片路径
+		        break;
+		      default:
+		        break;
+		    }
+		    this.finish();
+	}
+
+	private void updatePIC(String imaged) {
+		// TODO 自动生成的方法存根
+
+		
+		final BmobFile bmobFile = new BmobFile(new File(imaged));
+		 Toast.makeText(MainActivity.this,"完成",Toast.LENGTH_SHORT).show();
+		bmobFile.uploadblock(new UploadFileListener() {
+
+		    @Override
+		    public void done(BmobException e) {
+		        if(e==null){
+		            //bmobFile.getFileUrl()--返回的上传文件的完整地址
+		        	Toast.makeText(MainActivity.this,"上传文件成功:" + bmobFile.getFileUrl(),Toast.LENGTH_SHORT).show();
+		        	MyUser newUser = new MyUser();
+		        	newUser.setIcon(bmobFile);
+		        	newUser.update(currentuser.getObjectId(), new UpdateListener(){
+
+						@Override
+						public void done(BmobException e) {
+							// TODO 自动生成的方法存根
+							if(e==null){
+								Toast.makeText(MainActivity.this,"成功",Toast.LENGTH_SHORT).show();
+							}
+							else{
+								Toast.makeText(MainActivity.this,"失败:" + e.getMessage(),Toast.LENGTH_SHORT).show();
+							}
+						}
+		        		
+		        	});
+		        	
+		        }else{
+		        	Toast.makeText(MainActivity.this,"上传文件失败:" + e.getMessage(),Toast.LENGTH_SHORT).show(); 
+		        }
+
+		    }
+
+		    @Override
+		    public void onProgress(Integer value) {
+		        // 返回的上传进度（百分比）
+		    }
+
+		});
 	}
 }

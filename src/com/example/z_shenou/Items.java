@@ -2,21 +2,30 @@ package com.example.z_shenou;
 
 import java.io.Serializable;
 
-public class Items implements Serializable{
-    //新闻标题，内容，图片
+import cn.bmob.v3.BmobObject;
+
+public class Items extends BmobObject{
+    //标题，内容，图片
+	private Integer number;
     private String name;
     private String content;
-    private int userhead;
+    private Integer userhead;
 
     /**
      * Constructs a new instance of {@code Object}.
      */
-    public Items(String name, String content, int userhead) {
+    public Items(Integer number,String name, String content, int userhead) {
         this.name=name;
         this.content=content;
         this.userhead=userhead;
+        this.number=number;
     }
-
+    public Items() {
+		// TODO 自动生成的构造函数存根
+	}
+	public void setnumber(Integer number){
+    	this.number=number;
+    }
     public void setcontent(String content) {
         this.content = content;
     }
@@ -25,7 +34,7 @@ public class Items implements Serializable{
         this.name = name;
     }
 
-    public void setuserhead(int userhead) {
+    public void setuserhead(Integer userhead) {
         this.userhead = userhead;
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center_horizontal"
@@ -26,29 +27,44 @@
 
         <TextView
             android:id="@+id/reg"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:paddingLeft="260dip"
-            android:paddingRight="8dip"
+            android:layout_marginLeft="250dip"
             android:paddingTop="7dip"
             android:text="注册"
             android:textColor="#ffffff"
             android:textSize="21dp" />
     </RelativeLayout>
 
+     <com.example.z_shenou.roundedimageview.RoundedImageView
+        android:id="@+id/imageView1"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:src="@drawable/unlogin"
+        app:riv_border_color="#d1f375"
+        app:riv_border_width="2dip"
+        android:layout_gravity="center_horizontal"
+        app:riv_corner_radius="30dip"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        app:riv_mutate_background="true"
+        app:riv_oval="true"
+        app:riv_tile_mode="repeat" />
     <LinearLayout
+        android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:orientation="horizontal"
-        android:paddingTop="25px" >
+
+         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:paddingLeft="14dip"
-            android:paddingRight="20dip"
+            android:paddingLeft="60dip"
+            android:paddingRight="8dip"
+            android:layout_gravity="center_vertical"
             android:text="账号"
             android:textColor="#000000"
             android:textSize="18dp" >
@@ -56,10 +72,10 @@
 
         <EditText
             android:id="@+id/Lo1"
-            android:layout_width="150px"
+            android:layout_width="240px"
+            android:layout_weight="0.4"
+            android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
-            android:layout_weight="0.85"
-            android:background="@null"
             android:maxLength="16"
             android:singleLine="true"
             android:hint="输入账号"
@@ -68,26 +84,22 @@
         </EditText>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/line"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/line" />
+    
 
     <LinearLayout
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:orientation="horizontal"
-        android:paddingTop="25px" >
+ >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:paddingLeft="14dip"
-            android:paddingRight="20dip"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="60dip"
+            android:paddingRight="8dip"
             android:text="密码"
             android:textColor="#000000"
             android:textSize="18dp" >
@@ -95,10 +107,10 @@
 
         <EditText
             android:id="@+id/Lo2"
-            android:layout_width="150px"
+            android:layout_width="240px"
+            android:layout_weight="0.4"
             android:layout_height="wrap_content"
-            android:layout_weight="0.85"
-            android:background="@null"
+            android:layout_gravity="center_vertical"
             android:maxLength="16"
             android:password="true"
             android:singleLine="true"
@@ -108,18 +120,13 @@
         </EditText>
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/line" />
+
 
     <Button
         android:id="@+id/btnLog"
-        android:layout_width="280dp"
+        android:layout_width="240dp"
         android:layout_height="45dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="18dp"
         android:text="登录"
         android:textSize="18dp"
         android:background="#ff8890"        

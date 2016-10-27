@@ -5,9 +5,9 @@
       android:layout_width="match_parent"
       android:orientation="vertical"
       android:layout_height="match_parent"
-      android:background="#f4f4f4">
+      android:background="@color/bg_Gray_light">
   
-     
+
     <TextView
          android:layout_width="match_parent"
          android:layout_height="40dp"
@@ -15,22 +15,42 @@
          android:textSize="18dp"
          android:background="#ffffff"
          android:text="我的"
-         android:padding="10dp" />
-
+         android:paddingTop="10dp" 
+         android:paddingLeft="10dp"/>
+ <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+       > 
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
     <LinearLayout 
       android:layout_width="match_parent"
       android:layout_height="120dp"
       android:background="@drawable/bg04"
       android:orientation="horizontal"
       >
-
-     <EditText
+ <com.example.z_shenou.roundedimageview.RoundedImageView
+        android:id="@+id/imageView1"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:src="@drawable/unlogin"
+        app:riv_border_color="#ffffff"
+        app:riv_border_width="2dip"
+        android:layout_gravity="center_vertical"
+        app:riv_corner_radius="30dip"
+        android:layout_marginLeft="50dp"
+        app:riv_mutate_background="true"
+        app:riv_oval="true"
+        app:riv_tile_mode="repeat" />
+     <TextView
          android:id="@+id/unlogin"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_marginTop="52dp"
-         android:layout_marginLeft="120dp"
-         android:text="未登录用户"
+         android:layout_marginLeft="10dp"
+         android:text="请点击登录"
+         android:layout_gravity="center_vertical"
          android:editable="false"
          android:singleLine="true"
          android:background="@null"
@@ -56,13 +76,12 @@
          android:layout_marginTop="5dp"
 />
            
-   <ImageView
-        android:background="#ffffff"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/line" />
+           <ListView
+       android:id="@+id/ListView02"
+       android:layout_width="fill_parent"
+       android:layout_height="match_parent"
+       android:footerDividersEnabled="true"
+        />
      <TextView
             android:id="@+id/email"
             android:layout_width="match_parent"
@@ -70,7 +89,7 @@
             android:layout_gravity="left"
             android:paddingLeft="14dip"
             android:paddingRight="20dip"
-            android:text="查看与修改"
+            android:text="个人资料"
             android:gravity="center"
             android:background="#ffffff"
             android:textColor="#c7c7c7"
@@ -78,32 +97,11 @@
             android:drawablePadding="120dp"
             android:textSize="20dp" >
         </TextView>
-        <ImageView
-        android:background="#ffffff"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/line" />
-         
-        <TextView
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="系统"
-         android:drawableLeft="@drawable/bg05"
-         android:drawablePadding="8dp"
-         android:textSize="18dp"
-         android:paddingLeft="20dp"
-         android:layout_marginTop="5dp"
-/>
-            <ImageView
-        android:background="#ffffff"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/line" />
-     <TextView
+ 
+  
+  
+        
+               <TextView
             android:id="@+id/setting"
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -140,15 +138,29 @@
             android:drawablePadding="120dp"
             android:textSize="20dp" >
         </TextView>
-        <ImageView
-        android:background="#ffffff"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/line" />
+   <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bg_Gray" />
          
-      
+       
+ />
 </LinearLayout>   
 
+ <Button
+        android:id="@+id/btnSign_out"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="18dp"
+         android:layout_gravity="center"
+        android:text="退出登录"
+        android:textSize="18dp"
+        android:background="#ff8890"        
+        android:textColor="#ffffff"
+        />
+  </LinearLayout>
+     </ScrollView>
+ 
  </LinearLayout>

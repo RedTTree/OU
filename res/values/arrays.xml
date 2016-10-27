@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string-array name="express"><!-- 定义资源数组 -->
+   <item>中通快递</item>
+   <item>圆通快递</item>
+   <item>韵达快递</item>
+   <item>京东商城</item>
+   <item>申通快递</item>
+   <item>国通快递</item>
+   <item>天猫超市</item>
+   <item>百世汇通</item>
+   </string-array>
+   <string-array name="weihe"><!-- 定义资源数组 -->
+   <item>1舍</item>
+   <item>2舍</item>
+   <item>3舍</item>
+   <item>4舍</item>
+   <item>5舍</item>
+   <item>6舍</item>
+   <item>7舍</item>
+   <item>8舍</item>
+   <item>9舍</item>
+   <item>10舍</item>
+   <item>11舍</item>
+   <item>12舍</item>
+   <item>13舍</item>
+   <item>14舍</item>
+   <item>15舍</item>
+   <item>16舍</item>
+   <item>17舍</item>
+   <item>18舍</item>
+   </string-array>
+     <string-array name="size"><!-- 定义资源数组 -->
+   <item>大件</item>
+   <item>中件</item>
+   <item>小件</item>
+   </string-array>
+</resources>

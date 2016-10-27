@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+        
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="vertical"
   android:layout_width="fill_parent"
@@ -35,7 +38,7 @@
              android:layout_height="wrap_content"
              android:orientation="horizontal">
      <TextView
-            android:id="@+id/name"
+            android:id="@+id/publish_name"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
@@ -69,7 +72,7 @@
         </TextView>
 
         <EditText
-            android:id="@+id/Lo1"
+            android:id="@+id/publish_telephone"
             android:layout_width="300px"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -102,13 +105,13 @@
         </TextView>
          <Spinner
              android:id="@+id/spinner_kaudi"
-             android:layout_width="140dp"
+             android:layout_width="120dp"
              android:layout_height="wrap_content"
-             android:paddingLeft="40dp"
              android:textColor="#000000"
              android:textSize="20dp"
-             android:layout_gravity="right" />
-
+             android:layout_gravity="right"
+             android:entries = "@array/express"
+             android:prompt = "@string/express_prompt" />
     </LinearLayout>
      <LinearLayout
         android:background="#fafafa"
@@ -131,10 +134,12 @@
          <Spinner
              android:id="@+id/spinner_weihe"
              android:layout_width="80dp"
+             android:paddingLeft="10dp"
              android:layout_height="wrap_content"
-             android:paddingLeft="40dp"
              android:textColor="#000000"
              android:textSize="20dp"
+             android:entries = "@array/weihe"
+             android:prompt = "@string/weihe_prompt"
              android:layout_gravity="right" />
     </LinearLayout>
      
@@ -162,11 +167,29 @@
              android:id="@+id/spinner_size"
              android:layout_width="80dp"
              android:layout_height="wrap_content"
-             android:paddingLeft="40dp"
              android:textColor="#000000"
              android:textSize="20dp"
+              android:entries = "@array/size"
+             android:prompt = "@string/size_prompt"
              android:layout_gravity="right" />
+           <EditText
+            android:id="@+id/publish_price"
+            android:layout_width="300px"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_marginLeft="20dp"
+            android:hint="出价"
+            android:maxLength="16"
+            android:singleLine="true"
+            android:textColor="#717171"
+            android:textSize="20dp" >
+
+        </EditText>
     </LinearLayout> 
+       
+
+      
+
       <LinearLayout
         android:background="#fafafa"
         android:layout_width="match_parent"
@@ -200,7 +223,7 @@
         </EditText>
     </LinearLayout>
         <Button
-        android:id="@+id/btnMenu"
+        android:id="@+id/btnpulish"
         android:layout_width="280dp"
         android:layout_height="45dp"
         android:layout_marginTop="10dp"

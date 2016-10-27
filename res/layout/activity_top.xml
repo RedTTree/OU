@@ -4,5 +4,14 @@
       android:layout_width="match_parent"
       android:layout_height="40dp"
        android:background="#d1f375">
-    
+    <TextView
+        android:text="单子"
+         android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center_vertical"
+          android:layout_marginLeft="20dp"
+          android:textSize="20dp"
+          android:textColor="#ffffff"
+        >  
+    </TextView>
  </RelativeLayout>

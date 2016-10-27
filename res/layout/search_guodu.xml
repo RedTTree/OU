@@ -1,0 +1,118 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:focusableInTouchMode="true"
+  android:orientation="vertical"
+  tools:context="${relativePackage}.${activityClass}">
+ 
+  <LinearLayout
+   android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/include1"
+        android:background="@drawable/bg_search_back"
+        android:gravity="center_vertical" 
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/back"   
+        android:drawableLeft="@drawable/login1"
+        android:paddingTop="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentLeft="true"
+        android:textColor="#000000"
+        android:textSize="20dp"      
+            ></TextView>     
+   
+
+        <EditText
+           android:id="@+id/et_search"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:background="@null"
+      android:paddingLeft="45dp"
+      android:gravity="start|center_vertical"
+      android:hint="仅可根据快递搜索"
+      android:imeOptions="actionSearch"
+      android:singleLine="true"
+      android:textColor="#000000"
+      android:textSize="16sp"/>
+ 
+              <ImageButton
+            android:id="@+id/ib_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+    
+            android:layout_marginRight="20dp"
+            android:paddingTop="30dp"
+            android:paddingRight="35dp"
+            android:background="@drawable/selector_bt_search" />
+  </LinearLayout>
+ 
+ 
+  <ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+ 
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+ 
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+ 
+        >
+ 
+        <TextView
+          android:id="@+id/tv_tip"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:gravity="left|center_vertical"
+          android:text="搜索历史" />
+ 
+        <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="#EEEEEE"></View>
+ 
+
+<com.example.z_shenou.MyListView
+          android:id="@+id/listView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"></com.example.z_shenou.MyListView>
+ 
+      </LinearLayout>
+ 
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EEEEEE"></View>
+ 
+      <TextView
+        android:id="@+id/tv_clear"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#F6F6F6"
+        android:gravity="center"
+        android:text="清除搜索历史" />
+ 
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="20dp"
+        android:background="#EEEEEE"></View>
+    </LinearLayout>
+ 
+  </ScrollView>
+</LinearLayout>
+

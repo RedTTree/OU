@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:gravity="center_horizontal"
+  >
+
+          <TextView
+            android:id="@+id/help"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="left"
+            android:paddingLeft="14dip"
+            android:paddingRight="20dip" 
+            android:gravity="center"
+            android:background="#ffffff"
+            android:textColor="#c0c0c0"
+            android:drawableRight="@drawable/bg03"
+            android:drawablePadding="120dp"
+            android:textSize="20dp" >
+        </TextView>    
+</LinearLayout>
