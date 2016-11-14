@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,9 +27,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
@@ -41,6 +44,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,On
 		private static final int PICTURE = 10086; //requestcode
 		//通过本地缓存登录
 		private MyUser currentuser;
+
 		//传值
 		 Bundle bundle;
 	    //五个跳转的框架
@@ -309,4 +313,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener,On
 
 		});
 	}
+	
+	
+
+
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:gravity="center_horizontal"
+  >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#d1f375" >
+      
+        <TextView
+            android:id="@+id/personal_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingBottom="2dp"
+            android:paddingLeft="28dp"
+            android:paddingTop="12dp"
+            android:text="个人资料"
+            android:textColor="#ffffff"
+            android:textSize="21dp" />
+         <Button
+        android:id="@+id/save_up"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:text="保存"
+        android:textSize="18dp"
+        android:background="#ff8890"        
+        android:textColor="#ffffff"
+        />
+       
+    </RelativeLayout>
+       
+ 
+        <ListView
+       android:id="@+id/ListView_personal"
+       android:layout_width="fill_parent"
+       android:layout_height="match_parent"
+       android:footerDividersEnabled="true"
+        />
+
+</LinearLayout>

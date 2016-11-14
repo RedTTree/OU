@@ -35,13 +35,16 @@ public class getFragment extends Fragment{
 	  private Integer currentPage = 0;
 	  //最前面一条的数据
 	  Expressage preitem;
-	
+	//通过本地缓存登录
+			private MyUser user;
 	
 	public View onCreateView(LayoutInflater inflater,
           @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		
 		gf_View=  inflater.inflate(R.layout.getfragment, container, false); 
-
+		Bundle bundle = getArguments();
+	    user=(MyUser)bundle.getSerializable("user");//登录的用户
+	    
 		initView();
 		initAdapter();	
 	    DownFlash();
@@ -89,9 +92,14 @@ public class getFragment extends Fragment{
 				//查询page为currentPage的数据
 		     query2.addWhereEqualTo("isfinish", false);
 				 //返回数据
+		     BmobQuery<Expressage> query3 = new BmobQuery<Expressage>();
+				//查询page为currentPage的数据
+		     query3.addWhereEqualTo("jieshou_user", user);
+				 //返回数据
 			 List<BmobQuery<Expressage>> andQuerys = new ArrayList<BmobQuery<Expressage>>();
 			 andQuerys.add(query1);
 			 andQuerys.add(query2);
+			 andQuerys.add(query3);
 			 
 			 BmobQuery<Expressage> query = new BmobQuery<Expressage>();
 			 query.and(andQuerys);

@@ -59,6 +59,7 @@ public class Item_content  extends Activity implements OnClickListener{
 		    public void done(MyUser object, BmobException e) {
 		        if(e==null){
 		        	pulish_user=object;
+		        	item_name.setText(pulish_user.getUsername());
 		        	Toast.makeText(Item_content.this,pulish_user.getUsername(), Toast.LENGTH_SHORT).show();
 		        }else{
 		        	Toast.makeText(Item_content.this,"失败"+e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -96,6 +97,7 @@ public class Item_content  extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
+		
 		// TODO 自动生成的方法存根
 		Expressage newitem=new Expressage();
 		newitem.setIsjie(true);

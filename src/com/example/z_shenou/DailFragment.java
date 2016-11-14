@@ -30,13 +30,22 @@ public class DailFragment extends Fragment {
 	private TextView tv3;
 	private ImageView tabline;
 	private List<Fragment>list;//存放三个F页面
+	//通过本地缓存登录
+	private MyUser user;
+	//传值
+	 Bundle bundle;
 	
 	private int tabLineLenght;
 	private int currentPage = 0;
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //  每个Fragment里都只有一个简单的view用于演示界面
+		
 		dailView=inflater.inflate(R.layout.p1, container, false);
+		
+		bundle = getArguments();
+	    user=(MyUser)bundle.getSerializable("user");//登录的用户
+		 
 		//初始化滑动条
 		initTabLine();
 		//初始化界面
@@ -55,6 +64,10 @@ public class DailFragment extends Fragment {
 		pulishFragment pf=new pulishFragment();
 		getFragment gf=new getFragment();
 		finishFragment ff=new finishFragment();
+		
+		pf.setArguments(bundle);
+		gf.setArguments(bundle);
+		ff.setArguments(bundle);
 		
 		list=new ArrayList<Fragment>();
 		

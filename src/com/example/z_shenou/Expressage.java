@@ -19,7 +19,9 @@ public class Expressage extends BmobObject{
     //是否完成
     private Boolean isfinish;
     //价格
-    private Double price;
+    private Integer price;
+    
+
      
 	 public String getExpress_company(){
 	return express_company;
@@ -57,9 +59,11 @@ public class Expressage extends BmobObject{
 	public Boolean getIsfinish(){
 		return this.isfinish;
 	}
-	public Double getPrice(){
+	public Integer getPrice(){
 		return this.price;
 	}
+	
+
 	
 	public void setExpress_company(String initialExpress_company){
 	this.express_company=initialExpress_company;
@@ -92,9 +96,10 @@ public class Expressage extends BmobObject{
 	public void setIsfinish(Boolean initialfinish){
 		this.isfinish=initialfinish;
 	}
-	public void setPrice(Double initialprice){
+	public void setPrice(Integer initialprice){
 		this.price=initialprice;
 	}
+
 	public void setpulish_name(String initialpulish_name){
 		this.pulish_name=initialpulish_name;
 		}

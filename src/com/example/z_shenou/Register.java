@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -33,6 +34,7 @@ public class Register  extends Activity implements OnClickListener{
 	private String password=null;
 	//注册用户
 	private MyUser user=new MyUser();
+	private Userdetial detail=new Userdetial();
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,6 +78,8 @@ public class Register  extends Activity implements OnClickListener{
 			user.setUsername(reg_account.getText().toString());
 			user.setEmail(reg_email.getText().toString());
 			user.setPassword(reg_password.getText().toString());
+			
+			
 			//向远程数据库加载
 			user.signUp(new SaveListener<MyUser>(){
 				@Override
@@ -86,6 +90,7 @@ public class Register  extends Activity implements OnClickListener{
 						//关闭多余的Login页面
 						// Login.instance.finish();
 						//跳转
+						 register_detail(arg0);
 						 Intent intent1;
 						 intent1=new Intent();
 						 intent1.putExtra("id",reg_account.getText().toString());
@@ -96,11 +101,32 @@ public class Register  extends Activity implements OnClickListener{
 					else
 					Toast.makeText(Register.this, "注册失败",Toast.LENGTH_SHORT).show();
 				}
+
+				
 			});
 		 }
-			 break;
-		 }
-		 }
+			 break;}}
+	private void register_detail(MyUser arg0) {
+		// TODO 自动生成的方法存根
+		detail.setUser(arg0);
+		detail.setIsTrue(false);
+		detail.setStudent_number("0");
+		detail.setOU_number(10);
+		detail.save(new SaveListener<String>() {
+
+			@Override
+			public void done(String arg0, BmobException e) {
+				// TODO 自动生成的方法存根
+				  if(e==null){	  
+	                	Toast.makeText(Register.this, "成功",Toast.LENGTH_SHORT).show();
+	                }else{
+	                    Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+	                }
+			}
+			
+		});
+
+	}
 	}
 
 

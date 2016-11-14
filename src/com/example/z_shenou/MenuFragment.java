@@ -1,12 +1,16 @@
-package com.example.z_shenou;
+ package com.example.z_shenou;
+
+import java.util.List;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +24,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
 public class MenuFragment extends Fragment  {
@@ -32,6 +38,8 @@ public class MenuFragment extends Fragment  {
 	BroadcastReceiver mReceiver; 
 	//通过本地缓存登录
 	private MyUser currentuser;
+	//个人详情
+	private Userdetial detail;
 	//发布按钮
 	Expressage EX;
 	private Button pulish;
@@ -48,6 +56,10 @@ public class MenuFragment extends Fragment  {
 	String Content;
 	String Size;
 	String Express;
+	private int OU=0;
+	
+	Boolean isDetail;
+	Boolean isTrue;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,6 +67,7 @@ public class MenuFragment extends Fragment  {
         //每个Fragment里都只有一个简单的view用于演示界面
 		Bundle bundle = getArguments();
 		currentuser=(MyUser)bundle.getSerializable("user");//登录的用户
+		
 		//广播
 		broadcastManager = LocalBroadcastManager.getInstance(getActivity());  
 		intentFilter = new IntentFilter();  
@@ -71,6 +84,7 @@ public class MenuFragment extends Fragment  {
 		 broadcastManager.registerReceiver(mReceiver, intentFilter);  
 		 
 		EX=new Expressage();
+		initQuery();
         initView();
 		initAdapter();
 		 // 初始化底部按钮事件
@@ -122,11 +136,13 @@ public class MenuFragment extends Fragment  {
 			EX.setSize(parent.getItemAtPosition(position).toString());
 			if(position==0){
 			text_price.setText("￥2.00");
-				EX.setPrice(2.00);
+				EX.setPrice(2);
+				OU=2;
 			}
 			else{
 				text_price.setText("￥1.00");
-			    EX.setPrice(1.00);
+			    EX.setPrice(1);
+			    OU=1;
 			}
 		}
 
@@ -160,6 +176,34 @@ public class MenuFragment extends Fragment  {
 			Toast.makeText(getActivity(), "请先登录",Toast.LENGTH_SHORT).show();
 			Intent intent=new Intent(getActivity(),Login.class);
 			startActivity(intent);
+		}
+		else if(!detail.getIsTrue()){
+			final AlertDialog.Builder normalDialog = 
+		            new AlertDialog.Builder(getActivity());
+		        normalDialog.setTitle("用户未验证");
+		        normalDialog.setMessage("请先进行验证");
+		        normalDialog.setNegativeButton("确定", 
+		                new DialogInterface.OnClickListener() {
+		                @Override
+		                public void onClick(DialogInterface dialog, int which) {
+		                    //...To-do
+		                }
+		            });
+		            // 显示
+		        normalDialog.show();
+		}
+		else if((currentuser.getOU_number()-OU)<1){
+			final AlertDialog.Builder normalDialog = 
+		            new AlertDialog.Builder(getActivity());
+		        normalDialog.setTitle("缺少OU片");
+		        normalDialog.setMessage("请先补充OU片");
+		        normalDialog.setNegativeButton("确定", 
+		                new DialogInterface.OnClickListener() {
+		                @Override
+		                public void onClick(DialogInterface dialog, int which) {
+		                    //...To-do
+		                }
+		            });
 		}
 		else{
 			//设置EX
@@ -203,4 +247,33 @@ public class MenuFragment extends Fragment  {
 		spinner_size=(Spinner) menuView.findViewById(R.id.spinner_size);
 		
 	}
+	
+	private void initQuery() {
+		// TODO 自动生成的方法存根
+		if(currentuser!=null){
+		BmobQuery<Userdetial> query = new BmobQuery<Userdetial>();
+		query.addWhereEqualTo("id_user",currentuser.getObjectId());
+		//执行查询方法
+		query.findObjects(new FindListener<Userdetial>() {
+
+			@Override
+			public void done(List<Userdetial> arg0, BmobException e) {
+				// TODO 自动生成的方法存根
+				 if(e==null){ 
+					 isDetail=true;
+					 detail=arg0.get(0);
+					 isTrue=detail.getIsTrue();
+					 text_phone.setText(detail.getTelephone());
+				 }
+				 else{
+					 Toast.makeText(getActivity(), "失败",Toast.LENGTH_SHORT).show();
+			            Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+			        }
+			}
+			
+		});
+		}
+	}
+
+	
 }

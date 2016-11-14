@@ -40,13 +40,15 @@ public class pulishFragment extends Fragment{
 	  Expressage preitem;
 	  //刷新
 	  private SwipeRefreshLayout mswipeRefreshLayout;
-	
+	//通过本地缓存登录
+		private MyUser user;
 	
 	public View onCreateView(LayoutInflater inflater,
             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		
 		pf_View=  inflater.inflate(R.layout.pulishfragment, container, false); 
-		
+		Bundle bundle = getArguments();
+	    user=(MyUser)bundle.getSerializable("user");//登录的用户
 		
 		initView();
 		TopFlash();
@@ -107,15 +109,19 @@ public class pulishFragment extends Fragment{
 
 			 BmobQuery<Expressage> query1 = new BmobQuery<Expressage>();
 			//查询page为currentPage的数据
-			 query1.addWhereEqualTo("isjie", false);
 			 //返回数据
 			 BmobQuery<Expressage> query2 = new BmobQuery<Expressage>();
 				//查询page为currentPage的数据
 		     query2.addWhereEqualTo("isfinish", false);
 				 //返回数据
+		     BmobQuery<Expressage> query3 = new BmobQuery<Expressage>();
+				//查询page为currentPage的数据
+		     query3.addWhereEqualTo("pulish_user", user);
+				 //返回数据
 			 List<BmobQuery<Expressage>> andQuerys = new ArrayList<BmobQuery<Expressage>>();
 			 andQuerys.add(query1);
 			 andQuerys.add(query2);
+			 andQuerys.add(query3);
 			 
 			 BmobQuery<Expressage> query = new BmobQuery<Expressage>();
 			 query.and(andQuerys);
@@ -139,7 +145,7 @@ public class pulishFragment extends Fragment{
 								 List.add(iem);
 							 }
 							 if(adapter==null){
-								 adapter=new pf_RecyclerViewAdapter(List,getActivity());
+								 adapter=new pf_RecyclerViewAdapter(List,getActivity(),user);
 								 recyclerView.setAdapter(adapter);
 							 }
 							 else{
@@ -175,7 +181,7 @@ public class pulishFragment extends Fragment{
 		//添加数据
 		List=new ArrayList<Expressage>();
 		// 初始化自定义的适配器
-		adapter=new pf_RecyclerViewAdapter(List,getActivity());
+		adapter=new pf_RecyclerViewAdapter(List,getActivity(),user);
 		// 设置固定大小
 		recyclerView.setHasFixedSize(true); 
 		// 设置适配器

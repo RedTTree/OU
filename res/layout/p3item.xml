@@ -4,20 +4,30 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
   android:gravity="center_horizontal"
+android:descendantFocusability="blocksDescendants"
   >
-
+       <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15px"
+        android:paddingBottom="15px">
           <TextView
-            android:id="@+id/help"
+              android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:paddingLeft="14dip"
+            android:paddingLeft="8dp"
             android:paddingRight="20dip" 
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:gravity="center"
-            android:background="#ffffff"
             android:textColor="#c0c0c0"
             android:drawableRight="@drawable/bg03"
             android:drawablePadding="120dp"
-            android:textSize="20dp" >
-        </TextView>    
+             android:focusable="false"
+            android:hint="A"
+            android:textSize="22dp" >
+        </TextView>   
+
+</LinearLayout>
 </LinearLayout>

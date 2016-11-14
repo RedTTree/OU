@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 public class pf_RecyclerViewAdapter extends RecyclerView.Adapter<pf_RecyclerViewAdapter.NewsViewHolder> implements OnClickListener{
@@ -23,10 +27,13 @@ public class pf_RecyclerViewAdapter extends RecyclerView.Adapter<pf_RecyclerView
     private List<Expressage> items;
     private Context context;
     private int j;
+    private MyUser user;
+    private MyUser jie_user;
 
-    public pf_RecyclerViewAdapter(List<Expressage> items,Context context) {
+    public pf_RecyclerViewAdapter(List<Expressage> items,Context context,MyUser user) {
         this.items = items;
         this.context=context;
+        this.user=user;
     }
     /**
      * 设置新的数据源，提醒adatper更新
@@ -70,12 +77,14 @@ public class pf_RecyclerViewAdapter extends RecyclerView.Adapter<pf_RecyclerView
     @Override
     public void onBindViewHolder(pf_RecyclerViewAdapter.NewsViewHolder personViewHolder, int i) {
         j=i;
-
+        
         personViewHolder.iv_userhead.setImageResource(R.drawable.unlogin);
         personViewHolder.iv_kuaidi.setText(items.get(i).getExpress_company());
         personViewHolder.iv_time.setText(items.get(i).getCreatedAt().toString());
         personViewHolder.iv_true.setOnClickListener(this);
-
+        
+        jie_user=(MyUser)items.get(j).getJieshou();
+        
         //为btn_share btn_readMore cardView设置点击事件
         personViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +115,8 @@ public class pf_RecyclerViewAdapter extends RecyclerView.Adapter<pf_RecyclerView
 					public void done(BmobException e) {
 						// TODO 自动生成的方法存根
 						  if(e==null){
+							  initUpdate();
+							  initJie_Update();
 								Toast.makeText(context,"成功", Toast.LENGTH_SHORT).show();
 					        }else{
 					        	Toast.makeText(context,"失败"+e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -115,6 +126,72 @@ public class pf_RecyclerViewAdapter extends RecyclerView.Adapter<pf_RecyclerView
 				});
 			 items.get(j).delete();
 		 }
+		 
 	}
+	
+	private void initJie_Update() {
+		// TODO 自动生成的方法存根
+		if(user!=null){
+			BmobQuery<MyUser> query = new BmobQuery<MyUser>();
+			query.getObject(jie_user.getObjectId(), new QueryListener<MyUser>() {
+
+			    @Override
+			    public void done(MyUser object, BmobException e) {
+			        if(e==null){
+			        	jie_user=object;
+			        	initQuery();
+			        	Toast.makeText(context,"成功加", Toast.LENGTH_SHORT).show();
+			        }else{
+			        	Toast.makeText(context,"失败"+e.getMessage(), Toast.LENGTH_SHORT).show();
+			        }
+			    }
+
+
+			});
+			}
+	}
+	
+	private void initQuery() {
+		// TODO 自动生成的方法存根
+		MyUser newuser=new MyUser();	
+		newuser.setOU_number(jie_user.getOU_number()+items.get(j).getPrice());
+		newuser.update(jie_user.getObjectId(),new UpdateListener(){
+
+			@Override
+			public void done(BmobException e) {
+				// TODO 自动生成的方法存根
+				 if(e==null){				 
+						Toast.makeText(context,"成功加加", Toast.LENGTH_SHORT).show();
+			        }else{
+			        	Toast.makeText(context,"失败"+e.getMessage(), Toast.LENGTH_SHORT).show();
+			        }
+			}
+			
+		});
+	}
+	
+	private void initUpdate() {
+		// TODO 自动生成的方法存根
+		MyUser newuser=new MyUser();	
+		newuser.setOU_number(user.getOU_number()-items.get(j).getPrice());
+		newuser.update(user.getObjectId(),new UpdateListener(){
+
+			@Override
+			public void done(BmobException e) {
+				// TODO 自动生成的方法存根
+				 if(e==null){
+					 
+						Toast.makeText(context,"成功减", Toast.LENGTH_SHORT).show();
+			        }else{
+			        	Toast.makeText(context,"失败"+e.getMessage(), Toast.LENGTH_SHORT).show();
+			        }
+			}
+			
+		});
+	}
+	
+
+	
 
 }
+
